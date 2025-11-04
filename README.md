@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Скрипты Roblox</title>
+<style>
+  body {
+    margin: 0;
+    background-color: #000;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+  }
+  .search-container {
+    width: 400px;
+    margin-bottom: 25px;
+  }
+  .search-box {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: #222;
+    color: #fff;
+    box-shadow: 0 0 20px #8a2be2;
+    transition: all 0.3s ease;
+  }
+  .search-box:focus {
+    box-shadow: 0 0 30px #8a2be2, inset 0 0 10px #8a2be2;
+  }
+  .script-box-container {
+    width: 90%;
+    max-width: 600px;
+    background: #111;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 10px;
+  }
+  .script-title {
+    font-size: 20px;
+    color: #bf57ff;
+    font-weight: bold;
+    text-shadow: 0 0 8px #bf57ff;
+    margin-bottom: 10px;
+  }
+  .script-code {
+    font-family: monospace;
+    font-size: 14px;
+    color: #0f0;
+    background: #222;
+    padding: 10px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .button-copy {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  .button-copy:hover {
+    background-color: #45a049;
+  }
+</style>
+</head>
+<body>
+
+<div class="search-container">
+  <input type="text" id="searchInput" class="search-box" placeholder="Поиск скриптов по названию..." />
+</div>
+
+<!-- Первый скрипт -->
+<div class="script-box-container" data-name="infinite yield">
+  <div class="script-title">Infinite Yield</div>
+  <div class="script-code" id="code1">
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+  </div>
+  <button class="button-copy" data-copy="code1">Копировать скрипт</button>
+</div>
+
+<!-- Второй скрипт -->
+<div class="script-box-container" data-name="Nam">
+  <div class="script-title">Nameless hub</div>
+  <div class="script-code" id="code2">
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ily123950/Vulkan/refs/heads/main/Tr"))()
+  </div>
+  <button class="button-copy" data-copy="code2">Копировать скрипт</button>
+</div>
+
+<!-- Третий скрипт -->
+<div class="script-box-container" data-name="Lemon Hub">
+  <div class="script-title">Lemon Hub</div>
+  <div class="script-code" id="code3">
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/c4281c3937ebd537cb9e860182e41141.lua"))()
+  </div>
+  <button class="button-copy" data-copy="code3">Копировать скрипт</button>
+</div>
+
+<script>
+  // Копирование кода
+  document.querySelectorAll('.button-copy').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const codeId = btn.getAttribute('data-copy');
+      const codeText = document.getElementById(codeId).innerText.trim();
+      navigator.clipboard.writeText(codeText).then(() => {
+        alert('Скрипт скопирован!');
+      }).catch(() => {
+        const textarea = document.createElement("textarea");
+        textarea.value = codeText;
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          alert('Скрипт скопирован!');
+        } catch {
+          alert('Ошибка копирования');
+        }
+        document.body.removeChild(textarea);
+      });
+    });
+  });
+
+  // Поиск по названию
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', () => {
+    const filter = searchInput.value.toLowerCase();
+    document.querySelectorAll('.script-box-container').forEach(container => {
+      const name = container.getAttribute('data-name').toLowerCase();
+      if (name.includes(filter)) {
+        container.style.display = '';
+      } else {
+        container.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
